@@ -72,7 +72,7 @@ export default async function Home() {
             <section id="skills" className="section">
               <div className="container">
                 <Reveal3D><h2>Skills</h2></Reveal3D>
-                <Reveal3D delay={80}><div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>{skills.map((s,i) => <Reveal3D key={s.id} delay={i*18} as="span" className="tag" style={{ display:"inline-flex" }}>{s.name}{s.proficiency ? ` · ${s.proficiency}%` : ""}</Reveal3D>)}</div></Reveal3D>
+                <Reveal3D delay={80}><div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>{skills.map((s,i) => <Reveal3D key={s.id} delay={i*18} as="span" className="tag" style={{ display:"inline-flex" }}>{s.name}</Reveal3D>)}</div></Reveal3D>
               </div>
             </section>
 

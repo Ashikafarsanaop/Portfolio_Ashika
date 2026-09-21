@@ -4,5 +4,11 @@
     "files": [
       "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
+  },
+  "components\\ThreeHero.jsx -> three": {
+    "id": "components\\ThreeHero.jsx -> three",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_three_build_three_module_js.js"
+    ]
   }
 }

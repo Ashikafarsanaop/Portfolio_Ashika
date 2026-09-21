@@ -66,12 +66,14 @@ export default function ContactForm() {
       if (!res.ok) {
         setStatus({ type: "error", msg: data.error || "Failed to send. Please try again." });
       } else {
-        // Human-readable FormSubmit relay — client sees clean letter, not raw table
+        // Human-readable — hide Company if empty
+        const comp = form.company.trim();
+        const subj = form.subject.trim();
         const humanMessage = `Hi Ashika,\n\nYou received a new portfolio inquiry:\n\n` +
           `Name: ${form.name.trim()}\n` +
           `Email: ${form.email.trim()}\n` +
-          `Company: ${form.company.trim() || "Not provided"}\n` +
-          `Subject: ${form.subject.trim() || "No subject"}\n\n` +
+          (comp ? `Company: ${comp}\n` : ``) +
+          `Subject: ${subj || "No subject"}\n\n` +
           `Message:\n${form.message.trim()}\n\n` +
           `---\nReply directly to ${form.email.trim()} to respond.`;
         try{
