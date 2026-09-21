@@ -66,9 +66,29 @@ export default function ContactForm() {
       if (!res.ok) {
         setStatus({ type: "error", msg: data.error || "Failed to send. Please try again." });
       } else {
-        setStatus({ type: "success", msg: "Message sent! I'll get back to you soon." });
+        // Try client-side FormSubmit relay for instant delivery without SMTP (works on deployed domain)
+        try{
+          await fetch("https://formsubmit.co/ajax/a837c052a0137e3f19ef55312c058399", {
+            method:"POST",
+            headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+            body: JSON.stringify({
+              name: form.name.trim(),
+              email: form.email.trim(),
+              company: form.company.trim(),
+              subject: form.subject.trim() || `Portfolio message from ${form.name.trim()}`,
+              message: form.message.trim(),
+              _subject: form.subject.trim() ? `[Portfolio] ${form.subject.trim()}` : `[Portfolio] New message from ${form.name.trim()}`,
+              _template: "table",
+              _captcha: "false"
+            })
+          });
+        }catch{}
+        setStatus({ type: "success", msg: data.message || "Message sent to ashikafarsanaop@gmail.com! I'll get back to you soon." });
         setForm({ name: "", email: "", company: "", subject: "", message: "" });
         setErrors({});
+        if (data.mailto && !data.message?.includes("sent to ashikafarsanaop@gmail.com")) {
+          window.location.href = data.mailto;
+        }
       }
     } catch {
       setStatus({ type: "error", msg: "Network error. Please try again." });
@@ -144,7 +164,7 @@ export default function ContactForm() {
           {status.msg}
         </p>
       )}
-      <p className="form-hint muted">Messages are stored securely and visible to you at /admin/messages.</p>
+      <p className="form-hint muted">Messages are sent directly to <a href="mailto:ashikafarsanaop@gmail.com" style={{ color: "var(--primary)", fontWeight:700 }}>ashikafarsanaop@gmail.com</a> • You’ll also get a copy at <code>{form.email || "your email"}</code> as reply-to.</p>
     </form>
   );
 }

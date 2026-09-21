@@ -83,9 +83,11 @@ export default async function Home() {
                   {projects.map((p,i) => (
                     <Reveal3D key={p.id} delay={i*70} as="article" className="card">
                       <h3 style={{ color: "#1e3a8a" }}>{p.title}</h3>
-                      <p className="muted">{p.shortDescription}</p>
-                      <p>{p.description}</p>
-                      <div>{p.technologies.map(t => <span className="tag" key={t.technologyId}>{t.technology.name}</span>)}</div>
+                      <p className="muted" style={{ margin:"6px 0 10px" }}>{p.shortDescription}</p>
+                      <ul style={{ margin:"0 0 12px", paddingLeft:18, lineHeight:1.7, color:"var(--text)", fontSize:".92rem" }}>
+                        {p.description.split("\n").map((line,idx)=>(<li key={idx} style={{ marginBottom:4 }}>{line.replace(/^•\s*/,"")}</li>))}
+                      </ul>
+                      <div style={{ marginBottom:10 }}>{p.technologies.map(t => <span className="tag" key={t.technologyId}>{t.technology.name}</span>)}</div>
                       {p.githubUrl && <a className="btn btn-outline" href={p.githubUrl} target="_blank" rel="noreferrer">GitHub</a>}
                       {p.liveUrl && <a className="btn btn-primary" href={p.liveUrl} target="_blank" rel="noreferrer">Live Demo</a>}
                     </Reveal3D>
@@ -112,7 +114,12 @@ export default async function Home() {
                   {experience.map((e,i) => (
                     <Reveal3D key={e.id} delay={i*70} as="article" className="card">
                       {e.imageUrl && <img src={e.imageUrl} alt={e.jobTitle} style={{ width: "100%", height: "160px", objectFit: "cover", borderRadius: "12px", marginBottom: "12px", border: "1px solid var(--border)" }} />}
-                      <h3>{e.jobTitle}</h3><p>{e.company}</p><p className="muted">{e.employmentType}</p><p>{e.description}</p>
+                      <h3>{e.jobTitle}</h3>
+                      <p style={{ fontWeight:600, margin:"6px 0 2px" }}>{e.company}</p>
+                      <p className="muted" style={{ fontSize:".88rem", margin:"0 0 10px" }}>{e.employmentType}{e.startDate ? ` • ${e.startDate.slice(5,7)}/${e.startDate.slice(0,4)} – ${e.endDate ? `${e.endDate.slice(5,7)}/${e.endDate.slice(0,4)}` : "Present"}` : ""}</p>
+                      <ul style={{ margin:0, paddingLeft:18, lineHeight:1.7, color:"var(--text)", fontSize:".92rem" }}>
+                        {e.description.split("\n").map((line,idx)=>(<li key={idx} style={{ marginBottom:4 }}>{line.replace(/^•\s*/,"")}</li>))}
+                      </ul>
                     </Reveal3D>
                   ))}
                 </div>
@@ -131,7 +138,8 @@ export default async function Home() {
                         <img src={c.certificateImage} alt={c.name} style={{ width: "100%", height: "160px", objectFit: "cover", borderRadius: "12px", marginBottom: "12px", border: "1px solid var(--border)" }} />
                       ) : null}
                       <h3>{c.name}</h3>
-                      <p>{c.issuingOrganization}</p>
+                      <p style={{ fontWeight:600, margin:"6px 0 2px" }}>{c.issuingOrganization}</p>
+                      {c.issueDate && <p className="muted" style={{ fontSize:".88rem", margin:"0 0 8px" }}>Issued: {c.issueDate.slice(8,10)}-{c.issueDate.slice(5,7)}-{c.issueDate.slice(0,4)}</p>}
                       {c.credentialUrl && <a className="btn btn-outline" href={c.credentialUrl} target="_blank" rel="noreferrer">Verify</a>}
                       {c.certificateImage && !c.certificateImage.toLowerCase().endsWith(".pdf") && <a className="btn btn-outline" href={c.certificateImage} target="_blank" rel="noreferrer" style={{ marginLeft: "8px" }}>View Image</a>}
                     </Reveal3D>

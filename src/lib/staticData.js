@@ -27,19 +27,22 @@ export const skills = [
 export const projects = [
   {
     id: 1,
-    title: "StayFinder",
-    shortDescription: "A web-based rental management platform.",
-    description: "The application enables property owners to publish rental properties while allowing users to search, view, and request suitable accommodations based on their preferences. Every property submitted to the platform is verified and approved by the administrator before it is made available to users, ensuring the authenticity, accuracy, and reliability of the rental information.",
+    title: "StayFinder – Home Rental Management System",
+    shortDescription: "Web-based home rental platform connecting Owners and Clients directly.",
+    description: "• Developed a web-based home rental management platform connecting property owners and clients directly.\n• Implemented role-based modules for Admin, Owner, and Client.\n• Enabled Owners to add, update, delete, and manage rental property listings.\n• Enabled Clients to search, filter, view, and book available properties.\n• Implemented booking management with booking status and property availability tracking.\n• Developed an Admin dashboard to manage users, owners, properties, bookings, and approvals.\n• Added Owner–Client messaging for direct communication regarding properties and bookings.\n• Designed and integrated a PostgreSQL database for users, properties, bookings, payments, and related information.",
     imageUrl: null,
     githubUrl: "https://github.com/yourusername/stayfinder",
     liveUrl: null,
     category: "Web Application",
     featured: true,
     technologies: [
-      { projectId: 1, technologyId: 2, technology: { id: 2, name: "React.js" } },
       { projectId: 1, technologyId: 3, technology: { id: 3, name: "Next.js" } },
+      { projectId: 1, technologyId: 2, technology: { id: 2, name: "React.js" } },
+      { projectId: 1, technologyId: 5, technology: { id: 5, name: "JavaScript" } },
+      { projectId: 1, technologyId: 6, technology: { id: 6, name: "HTML" } },
+      { projectId: 1, technologyId: 9, technology: { id: 9, name: "CSS" } },
       { projectId: 1, technologyId: 4, technology: { id: 4, name: "PostgreSQL" } },
-      { projectId: 1, technologyId: 7, technology: { id: 7, name: "node.js" } },
+      { projectId: 1, technologyId: 10, technology: { id: 10, name: "pgAdmin" } },
     ],
   },
 ];
@@ -49,9 +52,32 @@ export const education = [
   { id: 3, degree: "Bsc Computer Science", institution: "Blossom Arts And Science college, Kondotty", fieldOfStudy: "", startYear: 2018, endYear: 2021 },
 ];
 
-export const experience = [];
+export const experience = [
+  {
+    id: 1,
+    jobTitle: "Software Testing",
+    company: "LeEYE-T Techno Hub, CyberPark (Government of Kerala) — Calicut",
+    employmentType: "Internship",
+    startDate: "2023-02-01",
+    endDate: "2024-05-31",
+    currentlyWorking: false,
+    location: "Calicut",
+    description: "• Performed manual testing of ERP, Textile, and Restaurant web applications.\n• Designed and executed test cases and test scenarios based on functional requirements.\n• Performed Functional, Regression, Retesting, and UI testing.\n• Identified, documented, and reported bugs/defects with relevant details.\n• Verified defect fixes through retesting and regression testing.\n• Tested different modules and user workflows to ensure application functionality and usability.\n• Prepared and maintained test cases, bug reports, and testing documentation.",
+    imageUrl: null,
+  },
+];
 
-export const certifications = [];
+export const certifications = [
+  {
+    id: 1,
+    name: "Software Testing — 3 Months Internship",
+    issuingOrganization: "Luminar Technolab, Calicut",
+    issueDate: "2023-01-30",
+    credentialId: null,
+    credentialUrl: null,
+    certificateImage: null,
+  },
+];
 
 export const resume = null;
 

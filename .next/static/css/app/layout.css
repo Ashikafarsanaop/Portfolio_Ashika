@@ -72,8 +72,8 @@ h2::after { content:""; position:absolute; left:0; bottom:-8px; width:44px; heig
 .btn:hover { transform: translateY(-3px) translateZ(14px) rotateX(4deg); box-shadow: 0 14px 28px rgba(107,114,128,.18), 0 4px 10px rgba(0,0,0,.08); }
 .btn:active { transform: translateY(-1px) translateZ(6px) scale(.98); }
 .btn:hover::before { opacity:1; }
-.btn-primary { background: linear-gradient(180deg, #6b7280 0%, #4b5563 100%); color:white; border:1px solid #374151; box-shadow: 0 8px 18px rgba(107,114,128,.28), 0 2px 6px rgba(0,0,0,.08); }
-.btn-primary:hover { background: linear-gradient(180deg, #9ca3af 0%, #4b5563 100%); box-shadow: 0 16px 32px rgba(107,114,128,.32), 0 6px 14px rgba(0,0,0,.10); }
+.btn-primary { background: #000000; color:white; border:1px solid #000000; box-shadow: 0 8px 18px rgba(0,0,0,.22), 0 2px 6px rgba(0,0,0,.14); }
+.btn-primary:hover { background: #1a1a1a; border-color:#1a1a1a; box-shadow: 0 12px 28px rgba(0,0,0,.28), 0 4px 10px rgba(0,0,0,.16); }
 .btn-outline { border:1px solid var(--border); background: rgba(255,255,255,.9); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); box-shadow: 0 4px 12px rgba(15,23,42,.04); }
 .btn-outline:hover { border-color: rgba(107,114,128,.22); background:#fff; box-shadow: 0 10px 22px rgba(15,23,42,.08); }
 .avatar { width:250px; height:250px; border-radius:50%; object-fit:cover; border:8px solid var(--card); box-shadow:0 15px 40px rgba(0,0,0,.4); }
