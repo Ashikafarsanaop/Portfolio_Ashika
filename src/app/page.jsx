@@ -1,29 +1,15 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
 import BriefcaseIcon from "@/components/BriefcaseIcon";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollToTop from "@/components/ScrollToTop";
 import ContactForm from "@/components/ContactForm";
 import Reveal3D from "@/components/Reveal3D";
 import ThreeHero from "@/components/ThreeHero";
+import { profile, skills, projects, education, experience, certifications, resume } from "@/lib/staticData";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 async function getData() {
-  const [profile, skills, projects, education, experience, certifications, resume] =
-    await Promise.all([
-      prisma.profile.findFirst(),
-      prisma.skill.findMany({ orderBy: { name: "asc" } }),
-      prisma.project.findMany({
-        where: { featured: true },
-        include: { technologies: { include: { technology: true } } },
-        orderBy: { createdAt: "desc" }
-      }),
-      prisma.education.findMany({ orderBy: { endYear: "desc" } }),
-      prisma.experience.findMany({ orderBy: { startDate: "desc" } }),
-      prisma.certification.findMany({ orderBy: { issueDate: "desc" } }),
-      prisma.resume.findFirst({ where: { isActive: true }, orderBy: { uploadedAt: "desc" } })
-    ]);
   return { profile, skills, projects, education, experience, certifications, resume };
 }
 

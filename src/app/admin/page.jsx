@@ -1,22 +1,22 @@
 import { getCurrentAdmin } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import { staticPortfolio } from "@/lib/staticData";
 import Link from "next/link";
+
+export const dynamic = "force-static";
 
 export default async function AdminDashboard() {
   const admin = await getCurrentAdmin();
   if (!admin) redirect("/admin/login");
 
-  const [projects, skills, messages, unreadMessages, education, experience, certifications, resumes] = await Promise.all([
-    prisma.project.count(),
-    prisma.skill.count(),
-    prisma.contactMessage.count(),
-    prisma.contactMessage.count({ where: { status: { not: "read" } } }),
-    prisma.education.count(),
-    prisma.experience.count(),
-    prisma.certification.count(),
-    prisma.resume.count()
-  ]);
+  const projects = staticPortfolio.projects.length;
+  const skills = staticPortfolio.skills.length;
+  const messages = 0;
+  const unreadMessages = 0;
+  const education = staticPortfolio.education.length;
+  const experience = staticPortfolio.experience.length;
+  const certifications = staticPortfolio.certifications.length;
+  const resumes = staticPortfolio.resume ? 1 : 0;
 
   const stats = [
     ["Projects", projects, "/admin/projects"],
