@@ -28,18 +28,19 @@ export async function POST(request){
   const transporter = getTransporter();
   if(transporter){
     try{
+      const humanText = `Hi Ashika,\n\nYou received a new portfolio inquiry:\n\nName: ${name}\nEmail: ${email}\nCompany: ${company||"Not provided"}\nSubject: ${subject||"No subject"}\n\nMessage:\n${message}\n\n---\nReply directly to ${email} to respond.`;
+      const humanHtml = `<div style="font-family:Geist,Arial,sans-serif; color:#1f2937; line-height:1.6; max-width:600px;"><h2 style="margin:0 0 12px; color:#111827;">New Portfolio Message</h2><p>Hi Ashika,</p><p>You received a new inquiry via your portfolio:</p><table style="border-collapse:collapse; width:100%; margin:12px 0;"><tr><td style="padding:6px 10px; font-weight:600; background:#f3f4f6; width:90px;">Name</td><td style="padding:6px 10px; border:1px solid #e5e7eb;">${name}</td></tr><tr><td style="padding:6px 10px; font-weight:600; background:#f3f4f6;">Email</td><td style="padding:6px 10px; border:1px solid #e5e7eb;"><a href="mailto:${email}">${email}</a></td></tr><tr><td style="padding:6px 10px; font-weight:600; background:#f3f4f6;">Company</td><td style="padding:6px 10px; border:1px solid #e5e7eb;">${company||"Not provided"}</td></tr><tr><td style="padding:6px 10px; font-weight:600; background:#f3f4f6;">Subject</td><td style="padding:6px 10px; border:1px solid #e5e7eb;">${subject||"No subject"}</td></tr></table><div style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:14px; white-space:pre-wrap; margin:12px 0;">${String(message).replace(/\n/g,"<br/>")}</div><p style="color:#6b7280; font-size:.88rem;">Reply directly to <a href="mailto:${email}">${email}</a></p></div>`;
       await transporter.sendMail({
         from: process.env.SMTP_FROM || `Portfolio <${process.env.SMTP_USER}>`,
         to: TO_EMAIL,
         replyTo: `${name} <${email}>`,
-        subject: subject ? `[Portfolio] ${subject}` : `[Portfolio] New message from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nCompany: ${company||"-"}\nSubject: ${subject||"-"}\n\nMessage:\n${message}`,
-        html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Company:</strong> ${company||"-"}</p><p><strong>Subject:</strong> ${subject||"-"}</p><hr/><p>${String(message).replace(/\n/g,"<br/>")}</p>`
+        subject: subject ? `[Portfolio] ${subject} — from ${name}` : `[Portfolio] New message from ${name}`,
+        text: humanText,
+        html: humanHtml
       });
       return NextResponse.json({success:true, message:"Message sent to "+TO_EMAIL});
     }catch(err){
       console.error("SMTP send failed:", err.message);
-      // fallback to success with mailto hint
       return NextResponse.json({success:true, message:"Message received (email failed, check SMTP). Please email directly to "+TO_EMAIL, fallbackMailto: `mailto:${TO_EMAIL}?subject=${encodeURIComponent(subject||`Portfolio message from ${name}`)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`});
     }
   }

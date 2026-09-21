@@ -66,7 +66,14 @@ export default function ContactForm() {
       if (!res.ok) {
         setStatus({ type: "error", msg: data.error || "Failed to send. Please try again." });
       } else {
-        // Try client-side FormSubmit relay for instant delivery without SMTP (works on deployed domain)
+        // Human-readable FormSubmit relay — client sees clean letter, not raw table
+        const humanMessage = `Hi Ashika,\n\nYou received a new portfolio inquiry:\n\n` +
+          `Name: ${form.name.trim()}\n` +
+          `Email: ${form.email.trim()}\n` +
+          `Company: ${form.company.trim() || "Not provided"}\n` +
+          `Subject: ${form.subject.trim() || "No subject"}\n\n` +
+          `Message:\n${form.message.trim()}\n\n` +
+          `---\nReply directly to ${form.email.trim()} to respond.`;
         try{
           await fetch("https://formsubmit.co/ajax/a837c052a0137e3f19ef55312c058399", {
             method:"POST",
@@ -74,11 +81,10 @@ export default function ContactForm() {
             body: JSON.stringify({
               name: form.name.trim(),
               email: form.email.trim(),
-              company: form.company.trim(),
-              subject: form.subject.trim() || `Portfolio message from ${form.name.trim()}`,
-              message: form.message.trim(),
-              _subject: form.subject.trim() ? `[Portfolio] ${form.subject.trim()}` : `[Portfolio] New message from ${form.name.trim()}`,
-              _template: "table",
+              _replyto: form.email.trim(),
+              _subject: form.subject.trim() ? `[Portfolio] ${form.subject.trim()} — from ${form.name.trim()}` : `[Portfolio] New message from ${form.name.trim()}`,
+              message: humanMessage,
+              _template: "box",
               _captcha: "false"
             })
           });
